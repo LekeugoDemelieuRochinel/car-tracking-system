@@ -1,6 +1,6 @@
 const express = require('express');
 const { createGeofence, getGeofences } = require('../controllers/geofenceController');
-const { authenticate } = require('../controllers/vehicleController'); // Include authenticate middleware
+const { authenticate } = require('../controllers/vehicleController');
 
 const router = express.Router();
 

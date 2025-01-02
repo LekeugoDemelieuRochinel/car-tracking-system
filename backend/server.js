@@ -7,8 +7,8 @@ const connectDB = require('./config/db');
 const Agency = require('./models/Agency');
 const Vehicle = require('./models/Vehicle');
 const agencyRoutes = require('./routes/agencyRoutes');
-const vehicleRoutes = require('./routes/vehicleRoutes'); // Import vehicle routes
-const geofenceRoutes = require('./routes/geofenceRoutes'); // Import geofence routes
+const vehicleRoutes = require('./routes/vehicleRoutes');
+const geofenceRoutes = require('./routes/geofenceRoutes');
 
 dotenv.config();
 
@@ -37,7 +37,6 @@ io.on('connection', (socket) => {
     
     // Emit vehicle updates periodically
     setInterval(async () => {
-        // Call your vehicle simulation function here
         const updatedVehicles = await simulateVehicleMovements(io);
         socket.emit('vehicleUpdates', updatedVehicles);
     }, 5000); // Update every 5 seconds

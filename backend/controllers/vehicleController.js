@@ -47,7 +47,7 @@ const getVehicles = async (req, res) => {
     }
 };
 
-// New function to get a vehicle by license plate
+// get a vehicle by license plate
 const getVehicleByLicensePlate = async (req, res) => {
     const { licensePlate } = req.params;
 
@@ -131,8 +131,7 @@ const simulateVehicleMovements = async (io) => {
       // Simulate random events (e.g., stopping at red lights)
       if (Math.random() < 0.1) { // 10% chance to stop
           console.log(`Vehicle ${vehicle.licensePlate} is stopping for a red light.`);
-          // Implement a stop logic if needed
-          return; // Skip saving if stopping
+          return;
       }
 
       // Save the updated vehicle location
