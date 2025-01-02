@@ -1,4 +1,5 @@
 const Vehicle = require('../models/Vehicle');
+const Geofence = require('../models/Geofence');
 const jwt = require('jsonwebtoken');
 
 // Middleware to check authentication
@@ -96,11 +97,58 @@ const deleteVehicle = async (req, res) => {
     }
 };
 
+const simulateVehicleMovements = async (io) => {
+  const vehicles = await Vehicle.find();
+  const geofences = await Geofence.find(); // Fetch all geofences for the agency
+
+  vehicles.forEach(vehicle => {
+      // Simulate speed and direction
+      const speed = Math.random() * 0.005 + 0.001; // Random speed between 0.001 and 0.006
+      const direction = Math.random() * 2 * Math.PI; // Random direction in radians
+
+      // Calculate change in latitude and longitude
+      const deltaLatitude = speed * Math.sin(direction);
+      const deltaLongitude = speed * Math.cos(direction);
+
+      // Update vehicle location
+      vehicle.location.latitude += deltaLatitude;
+      vehicle.location.longitude += deltaLongitude;
+
+      // Check against all geofences
+      const isInAnyGeofence = geofences.some(geofence => 
+          vehicle.location.latitude < geofence.boundaries.north &&
+          vehicle.location.latitude > geofence.boundaries.south &&
+          vehicle.location.longitude < geofence.boundaries.east &&
+          vehicle.location.longitude > geofence.boundaries.west
+      );
+
+      // Emit alerts for geofence violations
+      if (!isInAnyGeofence) {
+          console.log(`Alert: Vehicle ${vehicle.licensePlate} is out of bounds!`);
+          io.emit('geofenceAlert', { licensePlate: vehicle.licensePlate });
+      }
+
+      // Simulate random events (e.g., stopping at red lights)
+      if (Math.random() < 0.1) { // 10% chance to stop
+          console.log(`Vehicle ${vehicle.licensePlate} is stopping for a red light.`);
+          // Implement a stop logic if needed
+          return; // Skip saving if stopping
+      }
+
+      // Save the updated vehicle location
+      vehicle.save();
+  });
+
+  return vehicles; // Return updated vehicles for emitting
+};
+
+// Exporting the function and existing exports...
 module.exports = {
-    registerVehicle,
-    getVehicles,
-    getVehicleByLicensePlate,
-    updateVehicle,
-    deleteVehicle,
-    authenticate
+  registerVehicle,
+  getVehicles,
+  getVehicleByLicensePlate,
+  updateVehicle,
+  deleteVehicle,
+  authenticate,
+  simulateVehicleMovements
 };
