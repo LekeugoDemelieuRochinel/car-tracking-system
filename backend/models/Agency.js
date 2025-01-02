@@ -19,7 +19,7 @@ const agencySchema = new mongoose.Schema({
         ref: 'Vehicle', // Reference to the Vehicle model
         default: [] // Default to an empty array
     }]
-}, { timestamps: true }); // Optional: adds createdAt and updatedAt fields
+}, { timestamps: true }); // Adds createdAt and updatedAt fields
 
 const Agency = mongoose.model('Agency', agencySchema);
 

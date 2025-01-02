@@ -27,9 +27,9 @@ const vehicleSchema = new mongoose.Schema({
     agencyId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Agency' // Assuming you have an Agency model defined
+        ref: 'Agency' 
     }
-}, { timestamps: true }); // Optional: adds createdAt and updatedAt fields
+}, { timestamps: true });
 
 const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 
