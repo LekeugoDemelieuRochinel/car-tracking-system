@@ -1,10 +1,8 @@
-// backend/routes/vehicleRoutes.js
-
 const express = require('express');
 const {
     registerVehicle,
     getVehicles,
-    getVehicleByLicensePlate, // Import the new function
+    getVehicleByLicensePlate,
     updateVehicle,
     deleteVehicle,
     authenticate
