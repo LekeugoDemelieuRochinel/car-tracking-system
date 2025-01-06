@@ -4,27 +4,34 @@ const dotenv = require('dotenv');
 const http = require('http');
 const { Server } = require('socket.io');
 const connectDB = require('./config/db');
-const Agency = require('./models/Agency');
-const Vehicle = require('./models/Vehicle');
 const agencyRoutes = require('./routes/agencyRoutes');
 const vehicleRoutes = require('./routes/vehicleRoutes');
 const geofenceRoutes = require('./routes/geofenceRoutes');
+const { simulateVehicleMovements } = require('./controllers/vehicleController'); // Adjust path accordingly
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// CORS Configuration
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
 
-// Create a basic Socket.IO server
+// Create a basic Socket.IO server with CORS configuration
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: corsOptions,
+});
 
 // Test route
 app.get('/', (req, res) => {
@@ -33,12 +40,16 @@ app.get('/', (req, res) => {
 
 // Socket.IO connection
 io.on('connection', (socket) => {
-    console.log('A user connected');
+   // console.log('A user connected');
     
     // Emit vehicle updates periodically
     setInterval(async () => {
-        const updatedVehicles = await simulateVehicleMovements(io);
-        socket.emit('vehicleUpdates', updatedVehicles);
+        try {
+            const updatedVehicles = await simulateVehicleMovements(io);
+            socket.emit('vehicleUpdates', updatedVehicles);
+        } catch (error) {
+            console.error("Error simulating vehicle movements: ", error);
+        }
     }, 5000); // Update every 5 seconds
 
     socket.on('disconnect', () => {
@@ -47,13 +58,9 @@ io.on('connection', (socket) => {
 });
 
 // Use agency routes
-app.use('/api/agencies', agencyRoutes); // Register the agency routes
-
-// Use vehicle routes
-app.use('/api/vehicles', vehicleRoutes); // Register the vehicle routes
-
-// Use geofence routes
-app.use('/api/geofences', geofenceRoutes); // Register the geofence routes
+app.use('/api/agencies', agencyRoutes);
+app.use('/api/vehicles', vehicleRoutes);
+app.use('/api/geofences', geofenceRoutes);
 
 // Start the server
 server.listen(PORT, () => {

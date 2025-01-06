@@ -10,11 +10,13 @@ const authenticate = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) return res.status(401).json({ error: 'Unauthorized' });
         req.agencyId = decoded.id; // Store agency ID for later use
+        console.log(req.agencyId);
         next();
     });
 };
 
 const registerVehicle = async (req, res) => {
+  console.log(req.body)
     const { licensePlate, make, model, location } = req.body;
 
     try {
@@ -39,8 +41,10 @@ const registerVehicle = async (req, res) => {
 };
 
 const getVehicles = async (req, res) => {
+  console.log("fetch vehicles")
     try {
         const vehicles = await Vehicle.find({ agencyId: req.agencyId });
+        console.log('vehicles: ' + vehicles);
         res.status(200).json(vehicles);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -124,13 +128,13 @@ const simulateVehicleMovements = async (io) => {
 
       // Emit alerts for geofence violations
       if (!isInAnyGeofence) {
-          console.log(`Alert: Vehicle ${vehicle.licensePlate} is out of bounds!`);
+          //console.log(`Alert: Vehicle ${vehicle.licensePlate} is out of bounds!`);
           io.emit('geofenceAlert', { licensePlate: vehicle.licensePlate });
       }
 
       // Simulate random events (e.g., stopping at red lights)
       if (Math.random() < 0.1) { // 10% chance to stop
-          console.log(`Vehicle ${vehicle.licensePlate} is stopping for a red light.`);
+          //console.log(`Vehicle ${vehicle.licensePlate} is stopping for a red light.`);
           return;
       }
 

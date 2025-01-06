@@ -8,19 +8,45 @@ const VehicleForm = ({ refreshVehicles }) => {
     const [location, setLocation] = useState('');
 
     const handleSubmit = async (e) => {
+      console.log('attempt to submit');
         e.preventDefault();
         const token = localStorage.getItem('token');
+
         try {
-            await axios.post('http://localhost:5000/api/vehicles', { licensePlate, make, model, location }, {
-                headers: { Authorization: `Bearer ${token}` }
+            // Geocode the location using Nominatim
+            const geoResponse = await axios.get(`https://nominatim.openstreetmap.org/search`, {
+                params: {
+                    q: location,
+                    format: 'json',
+                    addressdetails: 1,
+                },
             });
+
+            const { data } = geoResponse;
+
+            if (data.length === 0) {
+              alert('Location not found')
+                throw new Error('Location not found');
+            }
+            console.log(data);
+
+            const { lat, lon } = data[0]; // Get latitude and longitude from the first result
+            console.log(lat);
+            console.log(lon);
+
+            // Send vehicle data to the backend
+            await axios.post('http://localhost:5000/api/vehicles', 
+                { licensePlate, make, model, location: { latitude: lat, longitude: lon } }, 
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
             refreshVehicles();
             setLicensePlate('');
             setMake('');
             setModel('');
             setLocation('');
         } catch (error) {
-            alert('Error adding vehicle: ' + error.response.data.error);
+            alert('Error adding vehicle: ' + error.response?.data?.error || error.message);
         }
     };
 

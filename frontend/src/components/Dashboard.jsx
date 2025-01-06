@@ -2,69 +2,90 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import VehicleForm from './VehicleForm';
-import GeofenceForm from './GeofenceForm';
+import { io } from 'socket.io-client';
+import { decodeJWT } from '../utils/jwtDecode';
+import './Dashboard.css';
 
 const Dashboard = () => {
     const [map, setMap] = useState(null);
-    const [vehicles, setVehicles] = useState([]);
-    const [geofences, setGeofences] = useState([]);
 
     useEffect(() => {
-        const leafletMap = L.map('map').setView([51.505, -0.09], 13);
+        const socket = io('http://localhost:5000');
+        const leafletMap = L.map('map').setView([3.848, 11.5021], 6);
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '© OpenStreetMap'
+            attribution: '© OpenStreetMap',
         }).addTo(leafletMap);
+
         setMap(leafletMap);
-        fetchVehicles(leafletMap); // Pass the map instance to fetchVehicles
-        fetchGeofences(leafletMap); // Pass the map instance to fetchGeofences
+
+        fetchVehicles(leafletMap);
+
+        socket.on('vehicleUpdates', (updatedVehicles) => {
+            const token = localStorage.getItem('token');
+            const decoded = token ? decodeJWT(token) : null;
+            const agencyId = decoded ? decoded.id : null;
+
+            const filteredVehicles = updatedVehicles.filter(
+                (vehicle) => vehicle.agencyId === agencyId
+            );
+
+            updateVehicleMarkers(filteredVehicles, leafletMap);
+        });
+
+        return () => {
+            socket.disconnect();
+        };
     }, []);
 
     const fetchVehicles = async (leafletMap) => {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/vehicles', {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log(response.data);
-        setVehicles(response.data);
-
-        // Ensure the map instance is available before adding markers
-        if (leafletMap) {
-            response.data.forEach(vehicle => {
-                L.marker([vehicle.location.latitude, vehicle.location.longitude]).addTo(leafletMap)
-                    .bindPopup(vehicle.licensePlate);
+        try {
+            const response = await axios.get('http://localhost:5000/api/vehicles', {
+                headers: { Authorization: `Bearer ${token}` },
             });
+            const decoded = decodeJWT(token);
+            const agencyId = decoded?.id;
+
+            const filteredVehicles = response.data.filter(
+                (vehicle) => vehicle.agencyId === agencyId
+            );
+            updateVehicleMarkers(filteredVehicles, leafletMap);
+        } catch (error) {
+            console.error('Error fetching vehicles:', error);
         }
     };
 
-    const fetchGeofences = async (leafletMap) => {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/geofences', {
-            headers: { Authorization: `Bearer ${token}` }
+    const updateVehicleMarkers = (vehicles, leafletMap) => {
+        // Clear previous markers
+        leafletMap.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                leafletMap.removeLayer(layer);
+            }
         });
-        setGeofences(response.data);
 
-        // Ensure the map instance is available before adding rectangles
-        if (leafletMap) {
-            response.data.forEach(geofence => {
-                const bounds = [
-                    [geofence.boundaries.south, geofence.boundaries.west],
-                    [geofence.boundaries.north, geofence.boundaries.east]
-                ];
-                L.rectangle(bounds, { color: '#ff7800', weight: 1 }).addTo(leafletMap)
-                    .bindPopup(geofence.name);
-            });
-        }
+        // Add new markers with detailed info
+        vehicles.forEach((vehicle) => {
+            const { licensePlate, make, model } = vehicle;
+            const popupContent = `
+                <div>
+                    <strong>License Plate:</strong> ${licensePlate}<br />
+                    <strong>Make:</strong> ${make}<br />
+                    <strong>Model:</strong> ${model}
+                </div>
+            `;
+
+            L.marker([vehicle.location.latitude, vehicle.location.longitude])
+                .addTo(leafletMap)
+                .bindPopup(popupContent);
+        });
     };
 
     return (
-        <>
-            <h1>Dashboard</h1>
-            <VehicleForm refreshVehicles={fetchVehicles} />
-            <GeofenceForm refreshGeofences={fetchGeofences} />
-            <div id="map" style={{ height: '500px' }}></div>
-        </>
+        <div className="dashboard">
+            <div id="map"></div>
+        </div>
     );
 };
 
