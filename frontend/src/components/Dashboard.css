@@ -12,16 +12,12 @@
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100px; /* Sidebar width set to 100px */
   background: linear-gradient(135deg, #ffffff, #f9f9f9); 
   color: #333333;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 20px 10px;
+  padding: 10px 10px;
   z-index: 1000;
   box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1); 
   border-radius: 10px;
@@ -30,10 +26,8 @@
 /* Map container */
 #map {
   flex-grow: 1; /* Allow map to grow and fill remaining space */
-  margin-left: 100px; /* Offset the map to the right of the sidebar */
   margin-top: 0; /* No need for margin-top as there's no header anymore */
   height: 100vh; /* Take up the full height of the viewport */
-  width: calc(100% - 100px); /* Full width minus sidebar */
   position: relative; /* Ensure the map stays in the flow */
   z-index: 0;
 }

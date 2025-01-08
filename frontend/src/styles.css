@@ -5,18 +5,123 @@ body {
   background-color: #f8f9fa;
 }
 
-.app {
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  position: relative; /* Make sure the layout behaves properly */
+  margin-top: 0; /* Remove any margin from the app-layout */
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 150px;
+  background-color: #343a40;
+  color: #fff;
+  height: 100vh;
+  position: fixed; /* Keeps sidebar fixed */
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 100; /* Ensure the sidebar stays above content */
+  margin-top: 0; /* Ensure no margin at the top of the sidebar */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Removed margin from sidebar items */
+}
+
+.sidebar ul li {
+  margin: 25px 0; /* Increased margin between items */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.sidebar ul li:last-child {
+  border-bottom: none;
+}
+
+.sidebar ul li a {
+  color: #333333;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px; /* Increased padding for better spacing */
+  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+  border-radius: 8px;
+}
+
+.sidebar ul li a:hover {
+  background: #f1f1f1;
+  color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.sidebar ul li a.active {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.sidebar ul li a i {
+  margin-right: 15px;
+  font-size: 18px;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+  color: white;
+  border: none;
+  padding: 12px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 40px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.6);
+  transition: all 0.3s ease-in-out;
+  display: flex; /* Align icon and text in a row */
+  align-items: center; /* Vertically align the icon and text */
+  justify-content: center; /* Ensure the content is centered */
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(192, 57, 43, 0.8);
+  letter-spacing: 1px;
+}
+
+.logout-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(192, 57, 43, 0.5);
+}
+
+/* Content Area Styling */
+.content {
+  flex-grow: 1;
   padding: 20px;
+  background-color: #fff;
+  margin-left: 150px; /* Adjusted to match the sidebar width */
+  transition: margin-left 0.3s ease; /* Smooth transition for layout shift */
+  margin-top: 0; /* Remove any margin at the top of the content */
 }
 
-form {
-  margin-bottom: 20px;
+/* Adjust content width on login or register page */
+.content.full-width {
+  margin-left: 0;
 }
 
-input {
-  margin: 5px;
-  padding: 10px;
-  width: 200px;
+/* Ensure content does not go under the sidebar */
+.app-layout .content {
+  z-index: 1; /* Content stays below the sidebar */
 }
 
 button {
@@ -29,4 +134,25 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }

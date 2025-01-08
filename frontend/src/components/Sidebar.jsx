@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './Sidebar.css';
+import { FaCar, FaMapMarkedAlt, FaBell, FaSignOutAlt, FaUserCircle, FaRoad,  } from 'react-icons/fa'; // Adjust icons
 import { useAuth } from '../AuthContext';
 
 const Sidebar = () => {
@@ -20,7 +20,8 @@ const Sidebar = () => {
                         to="/" 
                         className={location.pathname === '/' ? 'active' : ''} // Add active class dynamically
                     >
-                        Dashboard
+                        <FaMapMarkedAlt size={24} style={{ marginRight: '12px' }} /> 
+                        Map View
                     </Link>
                 </li>
                 <li>
@@ -28,7 +29,8 @@ const Sidebar = () => {
                         to="/add-vehicle" 
                         className={location.pathname === '/add-vehicle' ? 'active' : ''} 
                     >
-                        Manage Vehicles
+                        <FaCar size={26} style={{ marginRight: '12px' }} /> 
+                        Manage Vehicle
                     </Link>
                 </li>
                 <li>
@@ -36,7 +38,8 @@ const Sidebar = () => {
                         to="/add-geofence" 
                         className={location.pathname === '/add-geofence' ? 'active' : ''} 
                     >
-                        Manage Geofences
+                        <FaRoad size={26} style={{ marginRight: '12px' }} /> 
+                        Manage Geofence
                     </Link>
                 </li>
                 <li>
@@ -44,11 +47,22 @@ const Sidebar = () => {
                         to="/geofence-alerts" 
                         className={location.pathname === '/geofence-alerts' ? 'active' : ''} 
                     >
+                        <FaBell size={24} style={{ marginRight: '12px' }} /> 
                         Geofence Alerts
+                    </Link>
+                </li>
+                <li>
+                    <Link 
+                        to="#" 
+                        className="profile-link"
+                    >
+                        <FaUserCircle size={24} style={{ marginRight: '12px' }} /> 
+                        Profile
                     </Link>
                 </li>
             </ul>
             <button className="logout-btn" onClick={handleLogout}>
+                <FaSignOutAlt size={18} style={{ marginRight: '10px' }} /> 
                 Logout
             </button>
         </div>

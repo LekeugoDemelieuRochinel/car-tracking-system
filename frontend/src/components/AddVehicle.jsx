@@ -5,7 +5,6 @@ import VehicleForm from './VehicleForm';
 const AddVehicle = () => {
     return (
         <div className="page-container">
-            <h1>Add Vehicle</h1>
             <VehicleForm />
         </div>
     );

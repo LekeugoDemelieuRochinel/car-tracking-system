@@ -1,24 +1,3 @@
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100px; /* Set fixed width to 100px */
-  background: linear-gradient(135deg, #ffffff, #f9f9f9);
-  color: #333333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 20px 10px;
-  z-index: 1000;
-  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-.sidebar .toggle-btn {
-  display: none; /* Remove the toggle button since it's no longer needed */
-}
-
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -28,6 +7,12 @@
 .sidebar ul li {
   margin: 20px 0;
   text-align: left;
+  border-bottom: 1px solid #ddd; /* Add a light gray separator below each item */
+  padding-bottom: 10px; /* Add spacing to create a clean separation */
+}
+
+.sidebar ul li:last-child {
+  border-bottom: none; /* Remove the separator for the last item */
 }
 
 .sidebar ul li a {
@@ -45,14 +30,13 @@
   background: #f1f1f1;
   color: #007bff;
   box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-  transform: translateX(10px);
 }
 
 .sidebar ul li a.active {
-  background: #007bff;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6);
-  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.8); 
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .sidebar ul li a i {
@@ -61,7 +45,7 @@
 }
 
 .logout-btn {
-  background-color: #e74c3c;
+  background: linear-gradient(135deg, #e74c3c, #ff6b6b); /* Gradient from red to a softer shade */
   color: white;
   border: none;
   padding: 12px 10px;
@@ -71,11 +55,18 @@
   width: 100%;
   text-align: center;
   border-radius: 8px;
-  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.6); /* Soft glow effect */
+  transition: all 0.3s ease-in-out;
 }
 
 .logout-btn:hover {
-  background-color: #c0392b;
+  background: linear-gradient(135deg, #c0392b, #e74c3c); /* Darker gradient for hover */
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(192, 57, 43, 0.4);
+  box-shadow: 0 6px 12px rgba(192, 57, 43, 0.8); /* More prominent glow on hover */
+  letter-spacing: 1px; /* Subtle text effect on hover */
+}
+
+.logout-btn:active {
+  transform: scale(0.95); /* Pressed effect */
+  box-shadow: 0 2px 5px rgba(192, 57, 43, 0.5); /* Reduced shadow for pressed state */
 }
