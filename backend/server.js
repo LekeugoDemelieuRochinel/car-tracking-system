@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const agencyRoutes = require('./routes/agencyRoutes');
 const vehicleRoutes = require('./routes/vehicleRoutes');
 const geofenceRoutes = require('./routes/geofenceRoutes');
+const driverRoutes = require('./routes/driverRoutes');
 const { simulateVehicleMovements } = require('./controllers/vehicleController'); // Adjust path accordingly
 
 dotenv.config();
@@ -61,6 +62,7 @@ io.on('connection', (socket) => {
 app.use('/api/agencies', agencyRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/geofences', geofenceRoutes);
+app.use('/api/drivers/', driverRoutes)
 
 // Start the server
 server.listen(PORT, () => {

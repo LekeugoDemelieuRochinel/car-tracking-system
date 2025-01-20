@@ -28,6 +28,11 @@ const vehicleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Agency' 
+    },
+    driverId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Driver',
+        default: null // A driver can initially be unassigned to a vehicle
     }
 }, { timestamps: true });
 
