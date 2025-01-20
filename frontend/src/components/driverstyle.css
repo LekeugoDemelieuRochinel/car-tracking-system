@@ -1,0 +1,39 @@
+.vehicle-modal {
+  position: fixed; /* Make the modal fixed in the center of the screen */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff; /* White background for the modal */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  padding: 20px; /* Padding inside the modal */
+  z-index: 1001; /* Higher z-index to bring it above other elements */
+  width: 300px; /* Fixed width */
+  max-width: 90%; /* Responsive max width */
+}
+
+.vehicle-modal h2 {
+  margin: 0 0 15px; /* Margin for the title */
+  font-size: 20px; /* Font size for the title */
+  text-align: center; /* Center the title */
+}
+
+.vehicle-modal ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+}
+
+.vehicle-modal li {
+  margin: 10px 0; /* Spacing between list items */
+}
+
+.vehicle-assign-btn {
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for buttons */
+  cursor: pointer; /* Hand cursor on hover */
+  width: 100%; /* Full width buttons */
+  transition: background-color 0.3s; /* Smooth transition for hover state */
+}

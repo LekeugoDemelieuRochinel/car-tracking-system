@@ -41,10 +41,8 @@ const registerVehicle = async (req, res) => {
 };
 
 const getVehicles = async (req, res) => {
-  console.log("fetch vehicles")
     try {
         const vehicles = await Vehicle.find({ agencyId: req.agencyId });
-        console.log('vehicles: ' + vehicles);
         res.status(200).json(vehicles);
     } catch (error) {
         res.status(500).json({ error: error.message });

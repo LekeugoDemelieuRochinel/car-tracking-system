@@ -126,7 +126,7 @@ body {
 
 button {
   padding: 10px 15px;
-  background-color: #007bff;
+  background-color: linear-gradient(135deg, #007bff, #00c6ff);
   color: white;
   border: none;
   cursor: pointer;

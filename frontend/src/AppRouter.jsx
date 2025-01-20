@@ -6,10 +6,12 @@ import Dashboard from './components/Dashboard';
 import GeofenceAlerts from './components/GeofenceAlerts';
 import AddVehicle from './components/AddVehicle';
 import AddGeofence from './components/AddGeofence';
+import DriverPage from './components/DriverPage';
 import Sidebar from './components/Sidebar';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './AuthContext';
 import { AlertProvider } from './AlertContext';
+import AgencyProfilePage from './components/AgencyProfilePage';
 
 // Component to check if Sidebar should be shown or not
 const Layout = ({ children }) => {
@@ -60,10 +62,26 @@ const AppRouter = () => {
                             }
                         />
                         <Route
+                            path="/drivers"
+                            element={
+                                <Layout>
+                                    <ProtectedRoute element={<DriverPage />} isProtected={isAuthenticated} />
+                                </Layout>
+                            }
+                        />
+                        <Route
                             path="/add-geofence"
                             element={
                                 <Layout>
                                     <ProtectedRoute element={<AddGeofence />} isProtected={isAuthenticated} />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/agency-profile"
+                            element={
+                                <Layout>
+                                    <ProtectedRoute element={<AgencyProfilePage />} isProtected={isAuthenticated} />
                                 </Layout>
                             }
                         />
