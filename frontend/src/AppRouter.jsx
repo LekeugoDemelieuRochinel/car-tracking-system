@@ -41,7 +41,7 @@ const AppRouter = () => {
                             path="/"
                             element={
                                 <Layout>
-                                    <ProtectedRoute element={<Dashboard />} isProtected={isAuthenticated} />
+                                    <ProtectedRoute element={<Dashboard />} isProtected={true} />
                                 </Layout>
                             }
                         />
@@ -49,7 +49,7 @@ const AppRouter = () => {
                             path="/geofence-alerts"
                             element={
                                 <Layout>
-                                    <ProtectedRoute element={<GeofenceAlerts />} isProtected={isAuthenticated} />
+                                    <ProtectedRoute element={<GeofenceAlerts />} isProtected={true} />
                                 </Layout>
                             }
                         />
@@ -57,7 +57,7 @@ const AppRouter = () => {
                             path="/add-vehicle"
                             element={
                                 <Layout>
-                                    <ProtectedRoute element={<AddVehicle />} isProtected={isAuthenticated} />
+                                    <ProtectedRoute element={<AddVehicle />} isProtected={true} />
                                 </Layout>
                             }
                         />
@@ -65,7 +65,7 @@ const AppRouter = () => {
                             path="/drivers"
                             element={
                                 <Layout>
-                                    <ProtectedRoute element={<DriverPage />} isProtected={isAuthenticated} />
+                                    <ProtectedRoute element={<DriverPage />} isProtected={true} />
                                 </Layout>
                             }
                         />
@@ -73,7 +73,7 @@ const AppRouter = () => {
                             path="/add-geofence"
                             element={
                                 <Layout>
-                                    <ProtectedRoute element={<AddGeofence />} isProtected={isAuthenticated} />
+                                    <ProtectedRoute element={<AddGeofence />} isProtected={true} />
                                 </Layout>
                             }
                         />
