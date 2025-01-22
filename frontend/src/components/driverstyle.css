@@ -12,6 +12,15 @@
   max-width: 90%; /* Responsive max width */
 }
 
+.vehicle-modal form {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
 .vehicle-modal h2 {
   margin: 0 0 15px; /* Margin for the title */
   font-size: 20px; /* Font size for the title */

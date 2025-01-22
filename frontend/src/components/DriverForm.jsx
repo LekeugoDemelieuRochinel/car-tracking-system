@@ -46,7 +46,7 @@ const DriverManagement = () => {
       setDrivers(response.data);
       setLoading(false);
     } catch (err) {
-      setError("Failed to fetch drivers.");
+      setError("Failed to fetch drivers!");
       setLoading(false);
     }
   };
@@ -176,10 +176,10 @@ const DriverManagement = () => {
       </div>
     );
   }
-  if (error) return <p>{error}</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <div className="driver-management">
+    <div className="management-container">
       <h1>Manage Drivers</h1>
       <button onClick={() => setShowAddModal(true)} className="primary-btn">
         <FaPlus /> Add Driver

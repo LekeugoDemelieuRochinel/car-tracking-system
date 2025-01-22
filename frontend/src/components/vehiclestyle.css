@@ -66,7 +66,7 @@ button.delete-btn:hover {
 }
 
 /* Vehicle Management */
-.vehicle-management {
+.management-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -182,15 +182,22 @@ table tbody td button {
 
 /* Loading and Error Messages */
 p {
-  font-size: 16px;
-  text-align: center;
-  margin-top: 20px;
-  color: #666;
+  display: flex;
+  font-size: 20px; /* Bigger text */
+  font-weight: bold; /* Bold text */
+  color: #e7123d; /* Red color */
+  margin-top: 15px; /* Space between spinner and text */
+  text-align: center; /* Center text */
+  justify-content: center;
+  text-shadow: 2px 2px 8px rgba(255, 0, 34, 0.6), 0 0 25px rgba(233, 33, 103, 0.3); /* Adding text shadow for more depth */
 }
 
 p.error {
+  display: flex;
   color: #e74c3c;
   text-shadow: 1px 1px 4px rgba(231, 76, 60, 0.6);
+  text-align: center; /* Center text */
+  justify-content: center;
 }
 
 /* Add Modal Animations */
@@ -258,7 +265,6 @@ p.error {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  /* Adjust table styling for smaller screens */
   table thead th {
     font-size: 14px;
   }
@@ -291,7 +297,6 @@ p.error {
 }
 
 @media (max-width: 480px) {
-  /* Further adjustments for very small screens */
   h1 {
     font-size: 1.2rem;
   }

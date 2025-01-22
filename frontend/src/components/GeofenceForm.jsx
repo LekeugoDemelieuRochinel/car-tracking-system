@@ -31,7 +31,7 @@ const GeofenceManagement = () => {
       setGeofences(response.data);
       setLoading(false);
     } catch (err) {
-      setError("Failed to fetch geofences.");
+      setError("Failed to fetch geofences!");
       setLoading(false);
     }
   };
@@ -89,7 +89,7 @@ const GeofenceManagement = () => {
 
   return (
     <div className="management-container">
-      <h1>Management your Geofences</h1>
+      <h1>Manage your Geofences</h1>
       <button className="add-btn" onClick={() => setShowAddModal(true)}>
         <FaPlus style={{ marginRight: "5px" }} /> Add Geofence
       </button>

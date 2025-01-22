@@ -71,7 +71,7 @@ const VehicleManagement = () => {
       setVehicles(vehiclesWithAddress);
       setLoading(false);
     } catch (err) {
-      setError("Failed to fetch vehicles.");
+      setError("Failed to fetch vehicles!");
       setLoading(false);
     }
   };
@@ -202,7 +202,7 @@ const VehicleManagement = () => {
   }
     if (error) return <p>{error}</p>;
 
-  return <div className="vehicle-management">
+  return <div className="management-container">
   <h1>Manage Vehicles</h1>
   <button onClick={() => setShowAddModal(true)}><FaPlus /> Add Vehicle</button>
   <table>
