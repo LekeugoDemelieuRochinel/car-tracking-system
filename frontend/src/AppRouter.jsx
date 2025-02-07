@@ -81,7 +81,7 @@ const AppRouter = () => {
                             path="/agency-profile"
                             element={
                                 <Layout>
-                                    <ProtectedRoute element={<AgencyProfilePage />} isProtected={isAuthenticated} />
+                                    <ProtectedRoute element={<AgencyProfilePage />} isProtected={true} />
                                 </Layout>
                             }
                         />
