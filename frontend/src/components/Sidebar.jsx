@@ -42,8 +42,7 @@ const Sidebar = () => {
             Drivers
           </Link>
         </li>
-
-        <li>
+        {/* <li>
           <Link
             to="/add-geofence"
             className={location.pathname === '/add-geofence' ? 'active' : ''}
@@ -60,8 +59,9 @@ const Sidebar = () => {
             <FaBell size={24} style={{ marginRight: '12px' }} />
             Geofence Alerts
           </Link>
-        </li>
+        </li> */}
         <li>
+          
           <Link
             to="/agency-profile"
             className={location.pathname === '/agency-profile' ? 'active' : ''}
