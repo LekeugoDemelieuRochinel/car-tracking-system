@@ -83,9 +83,9 @@ const AgencyProfileView = () => {
       {/* Statistics Summary */}
       <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
         <StatCard label="Total Vehicles" value={statistics.totalVehicles} />
+        <StatCard label="Total Drivers" value={statistics.totalDrivers} />
         <StatCard label="Assigned Drivers" value={statistics.assignedDrivers} />
         <StatCard label="Unassigned Drivers" value={statistics.unassignedDrivers} />
-        <StatCard label="Total Drivers" value={statistics.totalDrivers} />
       </div>
     </div>
   );

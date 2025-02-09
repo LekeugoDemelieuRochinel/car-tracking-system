@@ -238,7 +238,6 @@ const DriverManagement = () => {
 
       {showAddModal && (
         <div className="modal">
-          <h2>Add New Driver</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault();

@@ -245,7 +245,6 @@ const VehicleManagement = () => {
 
   {showAddModal && (
     <div className="modal">
-      <h2>Add New Vehicle</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
